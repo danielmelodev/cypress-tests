@@ -3,12 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "serve -s dist -p 3000",
-    "cy:split:0": "cypress run --env \"split=ci,splitIndex=0,splitTotal=2\"",
-  "cy:split:1": "cypress run --env \"split=ci,splitIndex=1,splitTotal=2\"",
-  "cy:split:all": "concurrently \"yarn cy:split:0\" \"yarn cy:split:1\"",
-  "cy:split:2": "cypress run --env \"split=ci,splitIndex=2,splitTotal=3\""
-
+    "dev": "serve -s dist -p 3000"
   },
   "dependencies": {
     "cypress-real-events": "^1.14.0",
