@@ -4,8 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "serve -s dist -p 3000",
-    "test": "cypress run",
-    "cy:dev": "start-server-and-test dev http://localhost:3000 test"
+    "test": "cypress run"
   },
   "dependencies": {
     "cypress-real-events": "^1.14.0",
