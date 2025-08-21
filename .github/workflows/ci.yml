@@ -1,27 +1,19 @@
-name: Cypress Tests
-on:
-  push:
-
+name: End-to-end tests
+on: push
 jobs:
   cypress-run:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
+    # run 10 copies of the current job in parallel
     strategy:
       fail-fast: false
       matrix:
-        containers: [0, 1, 2, 3, 4] # Índices para splits
+        containers: [1, 2, 3, 4, 5]
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run Cypress tests (split)
-        run: |
-          npx cypress run --env split=ci,splitIndex=${{ matrix.containers }},splitTotal=5
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v3
-        with:
-          name: cypress-results-${{ matrix.containers }}
-          path: cypress/results/ # Ajuste para a pasta onde seus resultados estão
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Run split Cypress tests 🧪
+        uses: cypress-io/github-action@v6
+        # pass the machine index and the total number
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
