@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        containers: [1, 2, 3, 4, 5] # paralelismo
+        containers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] # paralelismo
     steps:
       - name: Checkout
         uses: actions/checkout@v4
