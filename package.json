@@ -1,0 +1,23 @@
+{
+  "name": "web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "serve -s dist -p 3000",
+    "cy:split:0": "cypress run --env \"split=ci,splitIndex=0,splitTotal=2\"",
+  "cy:split:1": "cypress run --env \"split=ci,splitIndex=1,splitTotal=2\"",
+  "cy:split:all": "concurrently \"yarn cy:split:0\" \"yarn cy:split:1\"",
+  "cy:split:2": "cypress run --env \"split=ci,splitIndex=2,splitTotal=3\""
+
+  },
+  "dependencies": {
+    "cypress-real-events": "^1.14.0",
+    "serve": "^14.2.4"
+  },
+  "packageManager": "yarn@1.22.22+sha512.a6b2f7906b721bba3d67d4aff083df04dad64c399707841b7acf00f6b133b7ac24255f2652fa22ae3534329dc6180534e98d17432037ff6fd140556e2bb3137e",
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "cypress": "^14.1.0",
+    "cypress-split": "^1.24.21"
+  }
+}

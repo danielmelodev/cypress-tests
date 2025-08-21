@@ -1,0 +1,76 @@
+describe("Gerenciamento de Perfis no Github", () => {
+  beforeEach(() => {
+    cy.login();
+    cy.goTo("Tabela", "Perfis do GitHub");
+  });
+
+  it("Deve poder cadastrar um novo perfil do github", () => {
+    cy.log("todo");
+
+    cy.get('[id="name"]').type("Daniel Melo");
+    cy.get("#username").type("testerdev");
+    cy.get("#profile").type("QA");
+    cy.contains("button", "Adicionar Perfil").click();
+
+    cy.get('[id="name"]').type("Daniel Melo");
+    cy.get("#username").type("danielmelodev");
+    cy.get("#profile").type("QA");
+    cy.contains("button", "Adicionar Perfil").click();
+
+    cy.contains("table tbody tr", "danielmelodev")
+      .should("be.visible")
+      .as("trProfile");
+
+    cy.get("@trProfile").contains("td", "Daniel Melo").should("be.visible");
+
+    cy.get("@trProfile").contains("td", "QA").should("be.visible");
+  });
+
+  it("Deve poder remover um perfil do github", () => {
+    const profile = {
+      name: "Daniel Melo",
+      username: "daniel123",
+      desc: "QA",
+    };
+
+    cy.get('[id="name"]').type(profile.name);
+    cy.get("#username").type(profile.username);
+    cy.get("#profile").type(profile.desc);
+    cy.contains("button", "Adicionar Perfil").click();
+
+    cy.contains("table tbody tr", profile.username)
+      .should("be.visible")
+      .as("trProfile");
+
+    cy.get("@trProfile").find('button[title="Remover perfil"]').click();
+
+    cy.contains("table tbody", profile.username).should("not.exist");
+  });
+
+  it("Deve validar o link do meu perfil do github", () => {
+    const profile = {
+      name: "Daniel Melo",
+      username: "danielmelodev",
+      desc: "QA",
+    };
+
+    cy.get('[id="name"]').type(profile.name);
+    cy.get("#username").type(profile.username);
+    cy.get("#profile").type(profile.desc);
+    cy.contains("button", "Adicionar Perfil").click();
+
+    cy.contains("table tbody tr", profile.username)
+      .should("be.visible")
+      .as("trProfile");
+
+    cy.get("@trProfile")
+      .find("a")
+      .should("have.attr", "href", `https://github.com/${profile.username}`)
+      .and("have.attr", "target", "_blank");
+
+    // cy.get("@trProfile")
+    //   .find(`a[href="https://github.com/${profile.username}"]`)
+    //   .invoke("removeAttr", "target")
+    //   .click();
+  });
+});
